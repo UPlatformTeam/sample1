@@ -4,6 +4,7 @@ from django.views.decorators.csrf import csrf_exempt
 from app.models import *
 import json
 
+
 def product_list(request):
     products = Product.objects.filter(is_visible=True)
     response = []
@@ -15,6 +16,7 @@ def product_list(request):
             'Price': product.price,
         })
     return JsonResponse(response, safe=False)
+
 
 def product_detail(request, id):
     product = get_product(id)
@@ -34,11 +36,13 @@ def product_detail(request, id):
         'Status': product.status,
     })
 
+
 def get_product(id):
     product = Product.objects.filter(id=id)
     if len(product) == 0:
         return None
     return product[0]
+
 
 @csrf_exempt
 def post_order(request):
@@ -60,6 +64,7 @@ def post_order(request):
     order = Order.objects.create(user=request.user, product=product, quantity=data['Quantity'], status='New')
     return JsonResponse({'Id': order.id})
 
+
 def order_list(request, amount):
     amount = int(amount)
     if not request.user.is_authenticated():
@@ -80,10 +85,12 @@ def order_list(request, amount):
         })
     return JsonResponse(response, safe=False)
 
+
 @csrf_exempt
 def logoff(request):
     logout(request)
     return JsonResponse({})
+
 
 @app.route('/address/add', methods=['GET', 'POST'])
 @login_required
@@ -93,6 +100,7 @@ def addressAdd():
         session.add(Address(metro_station=metro_station))
         session.commit()
     return render_template('address_add.html')
+
 
 @app.route('/category', methods=['GET'])
 @login_required

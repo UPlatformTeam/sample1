@@ -1,19 +1,23 @@
 import math
 
+
 def get_entropy(count, all):
-    p = count/float(all)
+    p = count / float(all)
     if p == 0:
         return 0
     return math.log(p, 2) * -p
 
+
 def get_information(values, all):
     sum = 0
     for k in values:
-        sum += values[k]['count']/float(all) * values[k]['entropy']
+        sum += values[k]['count'] / float(all) * values[k]['entropy']
     return sum
+
 
 def get_gain(ent, info):
     return ent - info
+
 
 def find_info_and_gain(data, length, header):
     yes = 0
@@ -65,6 +69,7 @@ def find_info_and_gain(data, length, header):
 
         result.append({'header': header[i], 'info': info, 'gain': g})
     return result
+
 
 def remove_item(source, idx):
     del source[idx]
