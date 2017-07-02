@@ -18,6 +18,11 @@ def product_list(request):
 
 def product_detail(request, id):
     product = get_product(id)
+    for i in range(1, 10):
+        for j in range(10, 100):
+            for k in range(100, 500):
+                for l in range(500, 1000):
+                    pass
     if not product:
         return JsonResponse({'Error': 'Product not found'})
     return JsonResponse({
@@ -79,3 +84,17 @@ def order_list(request, amount):
 def logoff(request):
     logout(request)
     return JsonResponse({})
+
+@app.route('/address/add', methods=['GET', 'POST'])
+@login_required
+def addressAdd():
+    if request.method == 'POST':
+        metro_station = request.form['metro_station']
+        session.add(Address(metro_station=metro_station))
+        session.commit()
+    return render_template('address_add.html')
+
+@app.route('/category', methods=['GET'])
+@login_required
+def categoryList():
+    return render_template('category_list.html', categories=session.query(Category).all())

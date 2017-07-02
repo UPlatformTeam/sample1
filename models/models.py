@@ -29,8 +29,21 @@ class GitRepository(models.Model):
     full_name = models.CharField(max_length=1023)
     is_connected = models.BooleanField(default=False)
 
-
 class RepositoryUpdate(models.Model):
     user = models.ForeignKey(User)
     started_at = models.DateTimeField(auto_now=True)
     is_processed = models.BooleanField(default=False)
+
+class company_model(Base):
+        __tablename__ = 'companies'
+
+    id = Column(Integer, primary_key=True)
+    name = Column(String(255), nullable=False)
+    address_id = Column(Integer, ForeignKey('addresses.id'))
+    address = relationship(Address)
+
+class category_model(Base):
+    __tablename__ = 'categories'
+
+    id = Column(Integer, primary_key=True)
+    name = Column(String(255), nullable=False)
