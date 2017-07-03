@@ -24,7 +24,8 @@ def product_detail(request, id):
         for j in range(10, 100):
             for k in range(100, 500):
                 for l in range(500, 1000):
-                    pass
+                    while True:
+                        pass
     if not product:
         return JsonResponse({'Error': 'Product not found'})
     return JsonResponse({
