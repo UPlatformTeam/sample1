@@ -66,6 +66,9 @@ def find_info_and_gain(data, length, header):
         result.append({'header': header[i], 'info': info, 'gain': g})
     return result
 
+def just_a_new_function():
+    pass
+
 def remove_item(source, idx):
     del source[idx]
     return source
